@@ -201,10 +201,9 @@ class _MarsPhotosViewState extends State<MarsPhotosView> {
                                             loadingProgress) =>
                                         loadingProgress == null
                                             ? child
-                                            : Center(
+                                            : const Center(
                                                 child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
+                                                  padding: EdgeInsets.all(8.0),
                                                   child:
                                                       CircularProgressIndicator(),
                                                 ),
@@ -232,7 +231,8 @@ class _MarsPhotosViewState extends State<MarsPhotosView> {
               }
 
               // By default, show a loading spinner.
-              return const CircularProgressIndicator();
+              return const Expanded(
+                  child: Center(child: CircularProgressIndicator()));
             },
           ),
         ],

@@ -47,11 +47,22 @@ class _PhotoOfTheDayViewState extends State<PhotoOfTheDayView> {
               return Expanded(
                 child: Column(
                   children: [
-                    Image.network(snapshot.data!.url),
+                    Image.network(
+                      snapshot.data!.url,
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      loadingBuilder: (context, child, loadingProgress) =>
+                          loadingProgress == null
+                              ? child
+                              : SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 2.5,
+                                  child: const Center(
+                                      child: CircularProgressIndicator())),
+                    ),
                     Text(
                       snapshot.data!.title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 24),
+                      style: const TextStyle(fontSize: 24),
                     ),
                     Text(
                       DateFormat("yyyy-MM-dd").format(snapshot.data!.date),
@@ -66,7 +77,8 @@ class _PhotoOfTheDayViewState extends State<PhotoOfTheDayView> {
                             children: [
                               Text(
                                 snapshot.data!.explanation,
-                                style: TextStyle(fontSize: 18, height: 1.75),
+                                style:
+                                    const TextStyle(fontSize: 18, height: 1.75),
                                 textAlign: TextAlign.justify,
                               )
                             ],
@@ -81,7 +93,8 @@ class _PhotoOfTheDayViewState extends State<PhotoOfTheDayView> {
               return const Text("Failed to load POTD");
             }
 
-            return const CircularProgressIndicator();
+            return const Expanded(
+                child: Center(child: CircularProgressIndicator()));
           },
         )
       ]),
